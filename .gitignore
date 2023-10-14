@@ -21,4 +21,32 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-replay_pid*
+
+/build/
+/bin/
+/.DS_Store
+/target/
+/src/main/resources/rebel.xml
+/store.iml
+/doc/~$*
+logs/
+
+# idea file
+*.iml
+
+# idea dir
+.idea/
+
+# eclipse file
+.project
+.classpath
+
+#eclipse dir
+/.settings/
+
+#maven dir
+target/
+
+/.project
+/.settings/org.eclipse.wst.common.component
+
