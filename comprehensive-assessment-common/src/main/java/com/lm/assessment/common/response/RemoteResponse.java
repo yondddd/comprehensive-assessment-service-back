@@ -187,21 +187,21 @@ public class RemoteResponse<T> implements Serializable {
     }
 
     public static RemoteResponse<Boolean> success() {
-        final RemoteResponse response =
+        final RemoteResponse remoteResponse =
                 RemoteResponse
                         .<Boolean>custom()
                         .setSuccess()
                         .setData(Boolean.TRUE);
-        return response;
+        return remoteResponse;
     }
 
     public static <T> RemoteResponse<T> success(T data) {
-        final RemoteResponse<T> response =
+        final RemoteResponse<T> remoteResponse =
                 RemoteResponse
                         .<T>custom()
                         .setSuccess()
                         .setData(data);
-        return response;
+        return remoteResponse;
     }
 
     @Override
