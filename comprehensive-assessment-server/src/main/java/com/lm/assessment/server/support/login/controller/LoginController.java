@@ -2,6 +2,7 @@ package com.lm.assessment.server.support.login.controller;
 
 import com.lm.assessment.common.constant.RegexConstant;
 import com.lm.assessment.common.response.RemoteResponse;
+import com.lm.assessment.server.model.UserDO;
 import com.lm.assessment.server.service.UserService;
 import com.lm.assessment.server.support.login.domain.PayloadHelper;
 import com.lm.assessment.server.support.login.jwt.JwtConstant;
@@ -12,6 +13,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,34 +27,39 @@ import java.util.Date;
  * @date 2023/10/20
  * @description 登录
  */
-@RestController("/login")
+@RestController
+@RequestMapping("login")
 public class LoginController {
 
     @Resource
     private UserService userService;
 
-
     @RequestMapping("token")
-    public ResponseEntity<TokenVO> token(LoginAccountVO login) {
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Cache-Control", "no-store");
-        headers.set("Pragma", "no-cache");
-        headers.set("Content-Type", "application/json;charset=UTF-8");
-        String account = login.getAccount();
+    public RemoteResponse<TokenVO> token(@RequestBody LoginAccountVO login) {
+        String account = login.getUsername();
+        UserDO user = null;
         if (RegexConstant.MOBILE_PATTERN.matcher(account).matches()) {
-            userService.getByMobile("1");
+            user = userService.getByMobile(account);
+        }else {
+            user = userService.getByEmail(account);
         }
-        // todo 查询用户与校验密码
-        TokenVO token = new TokenVO();
+        if (user == null) {
+            return RemoteResponse.<TokenVO>custom().setFailure("账号不存在");
+        }
+        String password = user.getPassword();
+        if (!password.equals(login.getPassword())) {
+            return RemoteResponse.<TokenVO>custom().setFailure("密码错误");
+        }
+        TokenVO result = new TokenVO();
         PayloadHelper payloadHelper = new PayloadHelper()
                 .setIssuer(JwtConstant.DEFAULT_CLIENT)
                 .setIssuedAt(new Date())
-                .setSubject("1")
+                .setSubject(user.getGuid())
                 .setSecret(JwtConstant.DEFAULT_SECRET)
                 .setAdditionalInfo(Collections.emptyMap());
-        JwtUtil.creatToken(payloadHelper, JwtConstant.LOGIN_TIME);
-        return new ResponseEntity<>(token, headers, HttpStatus.OK);
+        String token = JwtUtil.creatToken(payloadHelper, JwtConstant.LOGIN_TIME);
+        result.setToken(token);
+        return RemoteResponse.success(result);
     }
 
     @GetMapping("code")

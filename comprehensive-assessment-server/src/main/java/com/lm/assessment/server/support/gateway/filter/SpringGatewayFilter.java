@@ -15,9 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-//@Order(1)
-//@Component
-//@WebFilter(urlPatterns = "/*", asyncSupported = true)
+@Order(1)
+@Component
+@WebFilter(urlPatterns = "/*", asyncSupported = true)
 public class SpringGatewayFilter implements Filter {
 
     private final Logger logger = LoggerFactory.getLogger(SpringGatewayFilter.class);
@@ -30,11 +30,14 @@ public class SpringGatewayFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         String path=request.getServletPath();
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Headers", "*");
+        response.setHeader("Access-Control-Allow-Methods", "*");
         try {
-            if(path.startsWith("/ping") || path.startsWith("/gateway")){
+            if (path.startsWith("/")) {
                 //到本地
                 filterChain.doFilter(servletRequest, servletResponse);
-            }else{
+            } else {
                 GatewayFilterChain chain = new GatewaySimpleFilterChain(filterList);
                 chain.doGatewayFilter(request, response);
             }

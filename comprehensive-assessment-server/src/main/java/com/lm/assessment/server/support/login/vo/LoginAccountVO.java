@@ -16,28 +16,19 @@ public class LoginAccountVO implements Serializable {
     private static final long serialVersionUID = 1367931962259881559L;
 
     @ApiModelProperty("账户")
-    private String account;
-    @ApiModelProperty("账户类型")
-    private Integer accountType;
+    private String username;
     @ApiModelProperty("密码")
     private String password;
     @ApiModelProperty("身份类型")
     private Integer identityType;
 
-    public String getAccount() {
-        return account;
+
+    public String getUsername() {
+        return username;
     }
 
-    public void setAccount(String account) {
-        this.account = account;
-    }
-
-    public Integer getAccountType() {
-        return accountType;
-    }
-
-    public void setAccountType(Integer accountType) {
-        this.accountType = accountType;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -59,8 +50,7 @@ public class LoginAccountVO implements Serializable {
     @Override
     public String toString() {
         return "LoginAccountVO{" +
-                "account='" + account + '\'' +
-                ", accountType=" + accountType +
+                "username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", identityType=" + identityType +
                 '}';

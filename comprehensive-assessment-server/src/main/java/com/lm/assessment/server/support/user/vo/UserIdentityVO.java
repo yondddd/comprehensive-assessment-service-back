@@ -20,7 +20,7 @@ public class UserIdentityVO implements Serializable {
     @ApiModelProperty("用户guid")
     private String guid;
     @ApiModelProperty("用户名称")
-    private String userName;
+    private String username;
     @ApiModelProperty("手机")
     private String mobile;
     @ApiModelProperty("邮箱")
@@ -31,6 +31,9 @@ public class UserIdentityVO implements Serializable {
     private List<AccessDTO> access;
     @ApiModelProperty("单位id")
     private Integer orgId;
+
+    @ApiModelProperty("角色")
+    private List<String> roles;
 
     public Long getUserId() {
         return userId;
@@ -48,12 +51,12 @@ public class UserIdentityVO implements Serializable {
         this.guid = guid;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getMobile() {
@@ -96,17 +99,26 @@ public class UserIdentityVO implements Serializable {
         this.orgId = orgId;
     }
 
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
+    }
+
     @Override
     public String toString() {
         return "UserIdentityVO{" +
                 "userId=" + userId +
                 ", guid='" + guid + '\'' +
-                ", userName='" + userName + '\'' +
+                ", username='" + username + '\'' +
                 ", mobile='" + mobile + '\'' +
                 ", email='" + email + '\'' +
                 ", jobNumber='" + jobNumber + '\'' +
                 ", access=" + access +
                 ", orgId=" + orgId +
+                ", roles=" + roles +
                 '}';
     }
 }

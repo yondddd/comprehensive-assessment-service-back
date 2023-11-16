@@ -15,8 +15,8 @@ import java.io.IOException;
  * @date 2023/10/22
  * @description 用户token信息
  */
-//@Order(2)
-//@Component
+@Order(2)
+@Component
 public class UserSessionFilter implements GatewayFilter {
 
     private String tokenHeaderName = "Authorization";
