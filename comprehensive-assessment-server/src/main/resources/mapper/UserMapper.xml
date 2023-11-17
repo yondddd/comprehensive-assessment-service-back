@@ -145,7 +145,7 @@
         limit 1
     </select>
 
-    <select id="listById" resultMap="BaseResultMap">
+    <select id="listByIds" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from user
@@ -154,6 +154,15 @@
         <foreach collection="ids" open="(" close=")" separator="," item="id">
             #{id,jdbcType=BIGINT}
         </foreach>
+    </select>
+
+    <select id="getOneByGuid" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where
+        guid = #{guid,jdbcType=VARCHAR}
+        limit 1
     </select>
 
 </mapper>

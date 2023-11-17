@@ -62,7 +62,7 @@ public class RemoteResponse<T> implements Serializable {
     /**
      * 返回结果描述信息
      */
-    private String msg;
+    private String message;
 
     /**
      * 返回结果数据
@@ -78,9 +78,9 @@ public class RemoteResponse<T> implements Serializable {
         //
     }
 
-    public RemoteResponse(int code, String msg, T data) {
+    public RemoteResponse(int code, String message, T data) {
         this.code = code;
-        this.msg = msg;
+        this.message = message;
         this.data = data;
     }
 
@@ -97,12 +97,12 @@ public class RemoteResponse<T> implements Serializable {
         return this;
     }
 
-    public String getMsg() {
-        return this.msg;
+    public String getMessage() {
+        return this.message;
     }
 
-    public RemoteResponse<T> setMsg(String msg) {
-        this.msg = msg;
+    public RemoteResponse<T> setMessage(String message) {
+        this.message = message;
         return this;
     }
 
@@ -130,25 +130,25 @@ public class RemoteResponse<T> implements Serializable {
 
     public RemoteResponse<T> setSuccess() {
         code = SUCCESS;
-        this.msg = "success";
+        this.message = "success";
         return this;
     }
 
     public RemoteResponse<T> setFailure(final String msg) {
         code = FAILURE;
-        this.msg = msg;
+        this.message = msg;
         return this;
     }
 
     public RemoteResponse<T> setException(final String msg) {
         code = EXCEPTION;
-        this.msg = msg;
+        this.message = msg;
         return this;
     }
 
     public RemoteResponse<T> setIllegalParameter(final String msg) {
         code = ILLEGAL_PARAMETER;
-        this.msg = msg;
+        this.message = msg;
         return this;
     }
 
@@ -176,13 +176,13 @@ public class RemoteResponse<T> implements Serializable {
 
     public RemoteResponse<T> failure(String msg) {
         this.code = FAILURE;
-        this.msg = msg;
+        this.message = msg;
         return this;
     }
 
     public RemoteResponse<T> failure() {
         this.code = FAILURE;
-        this.msg = "server error";
+        this.message = "server error";
         return this;
     }
 
@@ -208,7 +208,7 @@ public class RemoteResponse<T> implements Serializable {
     public String toString() {
         return "RemoteResponse{" +
                 "code=" + code +
-                ", msg='" + msg + '\'' +
+                ", msg='" + message + '\'' +
                 ", data=" + data +
                 '}';
     }

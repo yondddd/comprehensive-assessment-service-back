@@ -26,5 +26,7 @@ public interface UserMapper {
 
     UserDO getOneByEmail(@Param("email") String email);
 
-    List<UserDO> listById(@Param("ids") List<Long> ids);
+    List<UserDO> listByIds(@Param("ids") List<Long> ids);
+
+    UserDO getOneByGuid(@Param("guid") String guid);
 }

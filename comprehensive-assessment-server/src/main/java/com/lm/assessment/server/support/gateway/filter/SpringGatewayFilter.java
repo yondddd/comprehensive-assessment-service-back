@@ -34,7 +34,7 @@ public class SpringGatewayFilter implements Filter {
         response.setHeader("Access-Control-Allow-Headers", "*");
         response.setHeader("Access-Control-Allow-Methods", "*");
         try {
-            if (path.startsWith("/")) {
+            if (path.startsWith("/login")) {
                 //到本地
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {

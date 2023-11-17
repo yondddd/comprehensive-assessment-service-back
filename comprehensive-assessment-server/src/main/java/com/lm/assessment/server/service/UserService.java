@@ -19,4 +19,5 @@ public interface UserService {
 
     List<UserDO> listByIds(List<Long> userIds);
 
+    UserDO getByGuid(String guid);
 }

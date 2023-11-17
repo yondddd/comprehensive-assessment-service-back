@@ -5,8 +5,10 @@ import com.lm.assessment.server.model.UserDO;
 import com.lm.assessment.server.service.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -34,12 +36,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDO getByEmail(String email) {
-        return null;
+        Assert.hasText(email, "邮箱为空");
+        return userMapper.getOneByEmail(email);
     }
 
     @Override
     public List<UserDO> listByIds(List<Long> userIds) {
-        return null;
+        if (CollectionUtils.isEmpty(userIds)) {
+            return Collections.emptyList();
+        }
+        return userMapper.listByIds(userIds);
     }
 
+    @Override
+    public UserDO getByGuid(String guid) {
+        Assert.hasText(guid, "guid为空");
+        return userMapper.getOneByGuid(guid);
+    }
 }
